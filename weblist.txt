@@ -1,5 +1,5 @@
-https://en.wikipedia.org/wiki/Machine_learning, learning
-https://metropolia.fi, study
-http://www.google.fi/bad, luck
-https://www.taobao.com/, suggest
-https://www.bilibili.com/, amine
+https://en.wikipedia.org/wiki/Machine_learning, machine
+https://www.google.fi/badtest, server
+https://www.youtube.com/, popular
+https://www.zalando.fi/miehet-home/, outlet
+https://stackoverflow.com/questions, python
