@@ -1,3 +1,4 @@
+repeat_time = [5] 
 https://en.wikipedia.org/wiki/Machine_learning, machine
 https://www.google.fi/badtest, server
 https://www.youtube.com/, popular

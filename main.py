@@ -5,11 +5,14 @@ import time
 def web_monitor():
     global urls
     global keys
+    global sleep_time
     urls = []
     keys = []
     time_stamp = time.ctime()
-    
+
     with open('weblist.txt', 'r') as weblist:
+        fisrtline_config = weblist.readline()
+        sleep_time = re.findall(r'[0-9]+', fisrtline_config)
         for line in weblist:
             fields = line.split(', ')
             urls.append(fields[0].strip())
@@ -38,9 +41,8 @@ def web_monitor():
         else:
             log.write('No results')
     log.close()
-
+    time.sleep(int(sleep_time[0]))
+    
 if __name__ == '__main__':
     while True:
         web_monitor()
-        print()
-        time.sleep(5)
