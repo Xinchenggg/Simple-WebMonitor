@@ -14,28 +14,30 @@ def web_monitor():
             fields = line.split(', ')
             urls.append(fields[0].strip())
             keys.append(fields[1].strip())
+    with open('web.log', 'w') as log:
+        log.write('###  Webpage monitor log:')
+    log = open('web.log', 'a')
     for url, key in zip(urls, keys):
-        print(url)
+        log.write('\n' + url + '\n')
         try:
             respond = requests.get(url, timeout= 5)
         except (requests.exceptions.RequestException, ValueError) as e:
-            print('Error!', end=' ') 
-            print(e)
+            log.write('Error!' + str(e))
             continue
-        print(time_stamp, end=' ')
         if respond.status_code != 200:
-            print('DOWN', end=' ')
+            log.write(time_stamp + ' DOWN ')
         else:
-            print('UP  ', end=' ')
-        respond_time = respond.elapsed.total_seconds()
-        print(respond_time, end=' ')
+            log.write(time_stamp + ' UP   ')
+        respond_time = round(respond.elapsed.total_seconds() * 1000, 2)
+        log.write(str(respond_time)+ 'ms ')
         html = requests.get(url).text 
         key_count = len(re.findall(key, html))
-        print(f"Search for '{key}' ", end=' ')
+        log.write(f"Search for '{key}' ")
         if key_count > 0 :
-            print(f"{key_count} found")
+            log.write(f"{key_count} found")
         else:
-            print('No results')
+            log.write('No results')
+    log.close()
 
 if __name__ == '__main__':
     while True:
