@@ -1,6 +1,15 @@
 import requests
 import re
 import time
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def page():
+    with open('web.log', 'r') as f:
+        content = f.read()
+    return render_template('index.html', content = content) 
 
 def web_monitor():
     global urls
@@ -41,8 +50,9 @@ def web_monitor():
         else:
             log.write('No results')
     log.close()
-    time.sleep(int(sleep_time[0]))
     
 if __name__ == '__main__':
     while True:
         web_monitor()
+        app.run()
+        time.sleep(int(sleep_time[0]))
