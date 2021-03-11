@@ -6,9 +6,12 @@
         </title>
     </head>
     <body>
-        <h1>Webpage monitor log</h1>
-
-        <p>{{content}}</p>
+    <p>
+        {% for url in content %}
+            {{url[0]}}<br/>
+            {{url[1]}}<br/>
+        {% endfor %}
+    </p>
 
     </body>
 </html>
