@@ -20,6 +20,7 @@ def web_monitor():
         htmllog.clear()
         time_stamp = time.ctime()
 
+        # read url and keywords from file
         with open('weblist.txt', 'r') as weblist:
             fisrtline_config = weblist.readline()
             sleep_time = re.findall(r'[0-9]+', fisrtline_config)
@@ -27,6 +28,8 @@ def web_monitor():
                 fields = line.split(', ')
                 urls.append(fields[0].strip())
                 keys.append(fields[1].strip())
+        
+        # get response and catch error
         with open('web.log', 'w') as log:
             log.write('###  Webpage monitor log:')
         log = open('web.log', 'a')
@@ -40,6 +43,8 @@ def web_monitor():
                 response_info += 'Error!' + str(e) + ' '
                 htmllog.append((url, response_info))
                 continue
+            
+            # write status, response time and results found to log and html
             if respond.status_code != 200:
                 log.write(time_stamp + ' DOWN ')
                 response_info += time_stamp + ' DOWN'
@@ -53,6 +58,7 @@ def web_monitor():
             key_count = len(re.findall(key, html))
             log.write(f"Search for '{key}' ")
             response_info += f'Search for "{key}"'
+            
             if key_count > 0 :
                 log.write(f"{key_count} found")
                 response_info += ' ' + str(key_count) + ' found'
